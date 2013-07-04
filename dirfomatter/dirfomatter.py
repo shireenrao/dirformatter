@@ -30,7 +30,7 @@ from sys import argv
 
 localtime = time.localtime(time.time())
 #print "Local current time :", localtime
-
+#print time.strftime("%a", localtime)
 format = argv[1]
 print format
 tokens = format.split("/")

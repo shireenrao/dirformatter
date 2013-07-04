@@ -1,5 +1,5 @@
-This module takes a date object and a format string and will create a directory
-structure based on that format string
+This module takes a date object and a format string and
+will create a directory structure based on that format string
 
 Default structure created under target directory
 is yyyy/mmmm/yyyy_mm_dd
@@ -22,3 +22,4 @@ mmm  month as an abreviation (Jan-Dec)
 mmmm month as a full name (January-December)
 yy   year as a two-digit number (00-99)
 yyyy year as a four digit number
+
