@@ -36,29 +36,31 @@ def createdirpath(format, tstamp, target=None):
     format = format.replace('mmmm','%B')
     format = format.replace('mmm','%b')
     format = format.replace('mm','%m')
-    #temp replace any %m to place holder  %1
+    # temp replace any %m to place holder  %1
     format = format.replace('%m','%1')
-    #change m to place holder %2 which will be replace with %m
-    #and lstrip on right before the end
+    # change m to place holder %2 which will be replaced with %m
+    # and lstrip on 0 right before we produce the output
     format = format.replace('m','%2')
-    #change back place holder %1 to %m
+    # change back place holder %1 to %m
     format = format.replace('%1','%m')
     format = format.replace('dddd','%A')
     format = format.replace('ddd','%a')
     format = format.replace('dd','%d')
-    #temp replace any %d to place holder %1
+    # temp replace any %d to place holder %1
     format = format.replace('%d', '%1')
     # change d to placeholder %3 to be later replaced with lstrip %d
     format = format.replace('d','%3')
-    #rever place holder back to %d
+    # revert place holder back to %d
     format = format.replace('%1','%d')
 
-    #replace %2 with real month without leading 0
+    # begin special cases for singe d and singe m
+    # replace %2 with real month without leading 0
     month_no_lead_zero = tstamp.strftime('%m').lstrip('0')
     format = format.replace('%2',month_no_lead_zero)
-    #replace %3 with real day without leading 0
+    # replace %3 with real day without leading 0
     day_no_leading_zero = tstamp.strftime('%d').lstrip('0')
     format = format.replace('%3',day_no_leading_zero)
+    # end special cases
 
     formatted_str = tstamp.strftime(format)
     tokens = formatted_str.split("/")
@@ -67,6 +69,7 @@ def createdirpath(format, tstamp, target=None):
         destpath = os.path.join(target, *tokens)
     else:
         destpath = os.path.join(*tokens)
+
     return destpath
 
 if __name__ == '__main__':
