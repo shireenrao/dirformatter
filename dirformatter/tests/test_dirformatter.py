@@ -32,5 +32,20 @@ class DirFormatterTests(unittest.TestCase):
             '/Users/shireenrao/Pictures'),
             '/Users/shireenrao/Pictures/MyPics/2013/2013_07_03')
 
+    def test_customFormat_4(self):
+        self.assertEqual(dirformatter.createdirpath(
+            'yyyymmdd', self.tstamp,
+            '/Users/shireenrao/Pictures'),
+            '/Users/shireenrao/Pictures/20130703')
+
+    def test_customFormat_5(self):
+        self.assertEqual(dirformatter.createdirpath(
+            'yyyymmdd', self.tstamp),
+            '20130703')
+
+    def test_customFormat_6(self):
+        self.assertEqual(dirformatter.createdirpath(
+            'yyyy\\mm\\dd', self.tstamp),
+            '2013/07/03')
 if __name__ == '__main__':
     unittest.main()
