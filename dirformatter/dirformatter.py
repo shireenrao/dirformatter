@@ -62,18 +62,27 @@ def createdirpath(format, tstamp, target=None):
     format = format.replace('%3',day_no_leading_zero)
     # end special cases
 
+    has_folder = None
     formatted_str = tstamp.strftime(format)
     if formatted_str.find("/") > 0:
         tokens = formatted_str.split("/")
+        has_folder = True
     elif formatted_str.find("\\") > 0:
         tokens = formatted_str.split("\\")
+        has_folder = True
     else:
         tokens = formatted_str
 
-    if target:
-        destpath = os.path.join(target, *tokens)
+    if has_folder:
+        if target:
+            destpath = os.path.join(target, *tokens)
+        else:
+            destpath = os.path.join(*tokens)
     else:
-        destpath = os.path.join(*tokens)
+        if target:
+            destpath = os.path.join(target, tokens)
+        else:
+            destpath = os.path.join(tokens)
 
     return destpath
 
