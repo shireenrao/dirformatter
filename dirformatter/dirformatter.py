@@ -63,7 +63,12 @@ def createdirpath(format, tstamp, target=None):
     # end special cases
 
     formatted_str = tstamp.strftime(format)
-    tokens = formatted_str.split("/")
+    if formatted_str.find("/") > 0:
+        tokens = formatted_str.split("/")
+    elif formatted_str.find("\\") > 0:
+        tokens = formatted_str.split("\\")
+    else:
+        tokens = formatted_str
 
     if target:
         destpath = os.path.join(target, *tokens)
