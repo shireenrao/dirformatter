@@ -36,14 +36,37 @@ def createdirpath(format, tstamp, target=None):
     format = format.replace('mmmm','%B')
     format = format.replace('mmm','%b')
     format = format.replace('mm','%m')
+    #temp replace any %m to place holder  %1
+    format = format.replace('%m','%1')
+    #change m to place holder %2 which will be replace with %m
+    #and lstrip on right before the end
+    format = format.replace('m','%2')
+    #change back place holder %1 to %m
+    format = format.replace('%1','%m')
     format = format.replace('dddd','%A')
     format = format.replace('ddd','%a')
     format = format.replace('dd','%d')
+    #temp replace any %d to place holder %1
+    format = format.replace('%d', '%1')
+    # change d to placeholder %3 to be later replaced with lstrip %d
+    format = format.replace('d','%3')
+    #rever place holder back to %d
+    format = format.replace('%1','%d')
+
+    #replace %2 with real month without leading 0
+    month_no_lead_zero = tstamp.strftime('%m').lstrip('0')
+    format = format.replace('%2',month_no_lead_zero)
+    #replace %3 with real day without leading 0
+    day_no_leading_zero = tstamp.strftime('%d').lstrip('0')
+    format = format.replace('%3',day_no_leading_zero)
 
     formatted_str = tstamp.strftime(format)
     tokens = formatted_str.split("/")
 
-    destpath = os.path.join(*tokens)
+    if target:
+        destpath = os.path.join(target, *tokens)
+    else:
+        destpath = os.path.join(*tokens)
     return destpath
 
 if __name__ == '__main__':
@@ -54,6 +77,8 @@ if __name__ == '__main__':
 
     date_str = '2013-07-03 12:45:45'
     localtime = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+    new_path = createdirpath(format, localtime, '/Users/shireenrao/mydev')
+    print new_path
     new_path = createdirpath(format, localtime)
     print new_path
 
