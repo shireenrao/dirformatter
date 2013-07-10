@@ -3,7 +3,7 @@
 import unittest
 import sys
 from datetime import datetime
-from dirformatter import dirformatter
+import dirformatter
 
 class DirFormatterTests(unittest.TestCase):
     """Unit tests for dirformatter"""
